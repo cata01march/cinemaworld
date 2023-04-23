@@ -1,0 +1,78 @@
+/* Navbar styles */
+@import "primeng/resources/themes/lara-light-blue/theme.css";
+@import "primeng/resources/primeng.css";
+@import "primeicons/primeicons.css";
+@import "primeflex/primeflex.css";
+body {
+    font-family: var(--font-family);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+.navbar {
+    padding: 1rem;
+    background-color: #343a40;
+  }
+  
+  .navbar-brand {
+    font-size: 2rem;
+    font-weight: bold;
+    letter-spacing: 2px;
+  }
+  
+  .navbar-toggler {
+    border: none;
+  }
+  
+  .navbar-toggler-icon {
+    background-color: #fff;
+    width: 24px;
+    height: 2px;
+    display: block;
+  }
+  
+  .nav-item {
+    margin-left: 1rem;
+  }
+  
+  .nav-link {
+    color: #fff !important;
+    font-size: 1.2rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    padding: 0.5rem 0;
+  }
+  
+  .nav-link:hover {
+    color: #f8f9fa !important;
+  }
+  
+  @media (max-width: 767px) {
+    .navbar-nav {
+      margin-top: 1rem;
+    }
+  
+    .navbar-collapse {
+      background-color: #343a40;
+      margin-top: 1rem;
+      border-radius: 5px;
+    }
+  
+    .nav-link {
+      margin-left: 0;
+      margin-right: 0;
+      padding: 0.5rem 1rem;
+      border-bottom: 1px solid #fff;
+    }
+  
+    .nav-link:last-child {
+      border-bottom: none;
+    }
+  
+    .navbar-toggler-icon {
+      margin-left: auto;
+      margin-right: 1rem;
+    }
+  }
+  
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
