@@ -920,13 +920,8 @@ body.active { overflow: hidden; }
  * #SEARCH ANIMATION
 \*-----------------------------------*/
 
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
 
-html {
+/* html {
   font-size: 62.5%;
 }
 
@@ -987,9 +982,9 @@ html {
 .search-icon i {
   color: #999;
   cursor: pointer;
-}
+} */
 
-@keyframes searchIconAnim {
+/* @keyframes searchIconAnim {
   0% {
     top: 1.7rem;
   }
@@ -1018,7 +1013,7 @@ html {
   100% {
     right: 3rem;
   }
-}
+} */
 
 /*-----------------------------------*\
  * #GO TO TOP
@@ -1244,7 +1239,7 @@ html {
 .registration-form input[type="password"] {
   width: 100%;
   padding: 8px;
-  font-size: 1rem;
+  font-size: 1.4rem;
   margin-bottom: 15px;
 }
 
@@ -1451,7 +1446,7 @@ html {
 
   .header-actions .btn-primary { display: none; }
 
-  /* .search-btn {
+  .search-btn {
     position: relative;
     color: var(--white);
   }
@@ -1466,7 +1461,7 @@ html {
     background: hsla(0, 0%, 100%, 0.1);
     width: 2px;
     height: 14px;
-  } */
+  }
 
   .lang-wrapper {
     display: flex;
