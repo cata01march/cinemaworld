@@ -1076,7 +1076,7 @@ body.active { overflow: hidden; }
 
 .play-btn {
   position: absolute;
-  inset: 0;
+  inset: 1;
   display: grid;
   place-items: center;
   font-size: 120px;
@@ -1239,7 +1239,7 @@ body.active { overflow: hidden; }
 .registration-form input[type="password"] {
   width: 100%;
   padding: 8px;
-  font-size: 1.4rem;
+  font-size: 1rem;
   margin-bottom: 15px;
 }
 
@@ -1283,10 +1283,10 @@ body.active { overflow: hidden; }
 
 .h-button-signin{
   color: var(--white)!IMPORTANT;
-  font-size: 23px;
+  font-size: 18px;
   font-weight: var(--fw-700)!IMPORTANT;
   text-transform: uppercase;
-  letter-spacing: 2px;
+  letter-spacing: 1.4px;
   padding: 5px 30px;
   border: 2px solid var(--citrine);
   border-radius: 50px;

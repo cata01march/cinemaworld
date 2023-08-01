@@ -1,3 +1,12 @@
+<?php
+session_start();
+
+// Function to check if the user is logged in
+function isUserLoggedIn() {
+    return isset($_SESSION['login']) && $_SESSION['login'] === true;
+}
+
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -37,7 +46,7 @@
 
       <div class="overlay" data-overlay></div>
 
-      <a href="./index.html" class="logo">
+      <a href="./index.php" class="logo">
         <img src="./assets/images/logo.svg" alt="Filmlane logo">
       </a>
 
@@ -56,7 +65,11 @@
           </select>
         </div>
 
-        <button class="btn btn-primary" onclick="window.location.href = './signin.html';">Sign in</button>
+        <?php if (isUserLoggedIn()): ?>
+        <button class="btn btn-primary" onclick="window.location.href = './logout.php';">Logout</button>
+        <?php else: ?>
+        <button class="btn btn-primary" onclick="window.location.href = './signin.php';">Sign In</button>
+        <?php endif; ?>
 
       </div>
 
@@ -68,7 +81,7 @@
 
         <div class="navbar-top">
 
-          <a href="./index.html" class="logo">
+          <a href="./index.php" class="logo">
             <img src="./assets/images/logo.svg" alt="Filmlane logo">
           </a>
 
@@ -85,19 +98,19 @@
           </li>
 
           <li>
-            <a href="#movies" class="navbar-link">Movie</a>
+            <a href="#schedule" class="navbar-link">Schedule</a>
           </li>
 
           <li>
-            <a href="#tvseries" class="navbar-link">Tv Show</a>
+            <a href="#events" class="navbar-link">Events</a>
           </li>
 
           <li>
-            <a href="#" class="navbar-link">Web Series</a>
+            <a href="#tickets" class="navbar-link">Tickets & Access</a>
           </li>
 
           <li>
-            <a href="#" class="navbar-link">Pricing</a>
+            <a href="#contact" class="navbar-link">Contact</a>
           </li>
 
         </ul>
@@ -160,7 +173,7 @@
             <p class="hero-subtitle">Cineflix</p>
 
             <h1 class="h1 hero-title">
-              Unlimited <strong>Movie</strong>, TVs Shows, & More.
+              Now in <strong>Cineflix</strong>
             </h1>
 
             <div class="meta-wrapper">
@@ -242,14 +255,14 @@
             <li>
               <div class="movie-card">
 
-                <a href="./movie-details.html">
+                <a href="./movie-details.php">
                   <figure class="card-banner">
                     <img src="./assets/images/movie-1.png" alt="Sonic the Hedgehog 2 movie poster">
                   </figure>
                 </a>
 
                 <div class="title-wrapper">
-                  <a href="./movie-details.html">
+                  <a href="./movie-details.php">
                     <h3 class="card-title">Sonic the Hedgehog 2</h3>
                   </a>
 

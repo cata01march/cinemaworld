@@ -22,7 +22,7 @@ $_SESSION = [];
 session_unset();
 session_destroy();
 
-header("Location: signin.html");
+header("Location: signin.php");
 exit();
 
 ?>

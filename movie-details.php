@@ -1,3 +1,12 @@
+<?php
+session_start();
+
+// Function to check if the user is logged in
+function isUserLoggedIn() {
+    return isset($_SESSION['login']) && $_SESSION['login'] === true;
+}
+
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -5,7 +14,7 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Free Guy 2021</title>
+  <title>Oppenheimer</title>
 
   <!-- 
     - favicon
@@ -36,7 +45,7 @@
 
       <div class="overlay" data-overlay></div>
 
-      <a href="./index" class="logo">
+      <a href="./index.php" class="logo">
         <img src="./assets/images/logo.svg" alt="Filmlane logo">
       </a>
 
@@ -57,7 +66,11 @@
           </select>
         </div>
 
-        <button class="btn btn-primary" onclick="window.location.href = './login.html';">Sign in</button>
+        <?php if (isUserLoggedIn()): ?>
+        <button class="btn btn-primary" onclick="window.location.href = './logout.php';">Logout</button>
+        <?php else: ?>
+        <button class="btn btn-primary" onclick="window.location.href = './signin.php';">Sign In</button>
+        <?php endif; ?>
 
       </div>
 
@@ -69,7 +82,7 @@
 
         <div class="navbar-top">
 
-          <a href="./index" class="logo">
+          <a href="./home.php" class="logo">
             <img src="./assets/images/logo.svg" alt="Filmlane logo">
           </a>
 
@@ -82,7 +95,7 @@
         <ul class="navbar-list">
 
           <li>
-            <a href="./index" class="navbar-link">Home</a>
+            <a href="./home.php" class="navbar-link">Home</a>
           </li>
 
           <li>
@@ -269,7 +282,7 @@
             <li>
               <div class="movie-card">
 
-                <a href="./movie-details.html">
+                <a href="./movie-details.php">
                   <figure class="card-banner">
                     <img src="./assets/images/series-1.png" alt="Moon Knight movie poster">
                   </figure>

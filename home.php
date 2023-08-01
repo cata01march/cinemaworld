@@ -20,11 +20,11 @@ session_start();
 //       $row = mysqli_fetch_assoc($result);
 //     }
 //     else{
-//       header("Location: index.html");
+//       header("Location: index.php");
 //     }
 // }
 if (!isset($_SESSION['login']) || $_SESSION['login'] !== true) {
-  header("Location: signin.html");
+  header("Location: index.php");
   exit();
 }
 
@@ -100,7 +100,7 @@ if (!isset($_SESSION['login']) || $_SESSION['login'] !== true) {
 
         <div class="navbar-top">
 
-          <a href="./index.html" class="logo">
+          <a href="./index.php" class="logo">
             <img src="./assets/images/logo.svg" alt="Filmlane logo">
           </a>
 
@@ -274,14 +274,14 @@ if (!isset($_SESSION['login']) || $_SESSION['login'] !== true) {
             <li>
               <div class="movie-card">
 
-                <a href="./movie-details.html">
+                <a href="./movie-details.php">
                   <figure class="card-banner">
                     <img src="./assets/images/movie-1.png" alt="Sonic the Hedgehog 2 movie poster">
                   </figure>
                 </a>
 
                 <div class="title-wrapper">
-                  <a href="./movie-details.html">
+                  <a href="./movie-details.php">
                     <h3 class="card-title">Sonic the Hedgehog 2</h3>
                   </a>
 

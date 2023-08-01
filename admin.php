@@ -15,16 +15,16 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         die("Connection failed: " . $connection->connect_error);
     }
     // Retrieve form inputs
-    $name = $_POST['name'];
-    $email = $_POST['email'];
+    $movie = $_POST['movie'];
+    $director = $_POST['director'];
     $phone = $_POST['phone'];
     $password = $_POST['password'];
     $confirmPassword = $_POST['confirm-password'];
 
     $duplicate = mysqli_query($connection, "SELECT * FROM users WHERE name = '$name' OR email = '$email'");
     if (mysqli_num_rows($duplicate) > 0) {
-        echo "<script> alert('Username or email has already been taken'); </script>";
-        header("Location: register.php?error=duplicate");
+        echo "<script> alert('Movie name has already been taken'); </script>";
+        header("Location: admin.php?error=duplicate");
         exit();
     } elseif ($password !== $confirmPassword) {
         echo "<script> alert('Passwords do not match. Please try again'); </script>";
@@ -204,7 +204,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         // Check if the 'error' query parameter exists
         const params = new URLSearchParams(window.location.search);
         if (params.get('error') === 'duplicate') {
-            alert('Username or email has already been taken');
+            alert('Movie name has already been taken');
         }
         if (params.get('error') === 'password_mismatch') {
             alert('Passwords do not match. Please try again');
