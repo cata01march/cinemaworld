@@ -133,23 +133,23 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         <ul class="navbar-list">
 
           <li>
-            <a href="./index.php" class="navbar-link">Home</a>
+            <a href="#top" class="navbar-link">Home</a>
           </li>
 
           <li>
-            <a href="./index.php#movie" class="navbar-link">Movie</a>
+            <a href="#schedule" class="navbar-link">Schedule</a>
           </li>
 
           <li>
-            <a href="./index.php#tvseries" class="navbar-link">Tv Show</a>
+            <a href="#events" class="navbar-link">Events</a>
           </li>
 
           <li>
-            <a href="./index.php#" class="navbar-link">Web Series</a>
+            <a href="#tickets" class="navbar-link">Tickets & Access</a>
           </li>
 
           <li>
-            <a href="./index.php#" class="navbar-link">Pricing</a>
+            <a href="#contact" class="navbar-link">Contact</a>
           </li>
 
         </ul>

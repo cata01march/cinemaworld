@@ -29,17 +29,18 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     if(mysqli_num_rows($result) > 0){
         $row = $result->fetch_assoc();
         // Verify the password against the hashed password from the database
-        if(password_verify($password, $row["password"]) && $row["id"] === 1){
+        // if(password_verify($password, $row["password"]) && $row["id"] === 1){
+        //     $_SESSION['login'] = true;
+        //     $_SESSION['name'] = $row["name"];
+        //     $_SESSION['id'] = $row["id"];
+        //     header("Location: admin.php");
+        //     exit();
+        // }
+        if(password_verify($password, $row["password"])){
             $_SESSION['login'] = true;
             $_SESSION['name'] = $row["name"];
             $_SESSION['id'] = $row["id"];
-            header("Location: admin.php");
-            exit();
-        }
-        else if(password_verify($password, $row["password"])){
-            $_SESSION['login'] = true;
-            $_SESSION['name'] = $row["name"];
-            $_SESSION['id'] = $row["id"];
+            $_SESSION['role'] = $row["role"]; 
             header("Location: home.php");
             exit();
         }
@@ -139,23 +140,23 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         <ul class="navbar-list">
 
           <li>
-            <a href="./index.php" class="navbar-link">Home</a>
+            <a href="#top" class="navbar-link">Home</a>
           </li>
 
           <li>
-            <a href="./index.php#movie" class="navbar-link">Movie</a>
+            <a href="#schedule" class="navbar-link">Schedule</a>
           </li>
 
           <li>
-            <a href="./index.php#tvseries" class="navbar-link">Tv Show</a>
+            <a href="#events" class="navbar-link">Events</a>
           </li>
 
           <li>
-            <a href="./index.php" class="navbar-link">Web Series</a>
+            <a href="#tickets" class="navbar-link">Tickets & Access</a>
           </li>
 
           <li>
-            <a href="./index.php" class="navbar-link">Pricing</a>
+            <a href="#contact" class="navbar-link">Contact</a>
           </li>
 
         </ul>

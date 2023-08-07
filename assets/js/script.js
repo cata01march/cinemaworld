@@ -55,21 +55,47 @@ window.addEventListener("scroll", function () {
  * search
  */
 
-const searchInputWrapper = document.querySelector(".search-input-wrapper");
-const searchInput = document.querySelector(".search-input input");
-const searchIcon = document.querySelector(".search-icon i");
-const closeIcon = document.querySelector(".search-input i ");
+// const searchInputWrapper = document.querySelector(".search-input-wrapper");
+// const searchInput = document.querySelector(".search-input input");
+// const searchIcon = document.querySelector(".search-btn ion-icon");
+// const closeIcon = document.querySelector(".search-input i ");
 
-searchIcon.addEventListener("click", () => {
-  searchIcon.parentElement.classList.add("change");
-  searchInputWrapper.classList.add("change");
+// searchIcon.addEventListener("click", () => {
+//   searchIcon.parentElement.classList.add("change");
+//   searchInputWrapper.classList.add("change");
 
-  setTimeout(() => {
-    searchInput.focus();
-  }, 1000);
-});
+//   setTimeout(() => {
+//     searchInput.focus();
+//   }, 1000);
+// });
 
-closeIcon.addEventListener("click", () => {
-  searchIcon.parentElement.classList.remove("change");
-  searchInputWrapper.classList.remove("change");
-});
+// closeIcon.addEventListener("click", () => {
+//   searchIcon.parentElement.classList.remove("change");
+//   searchInputWrapper.classList.remove("change");
+// });
+
+
+/**
+ * drop container
+ */
+const dropContainer = document.getElementById("dropcontainer")
+  const fileInput = document.getElementById("images")
+
+  dropContainer.addEventListener("dragover", (e) => {
+    // prevent default to allow drop
+    e.preventDefault()
+  }, false)
+
+  dropContainer.addEventListener("dragenter", () => {
+    dropContainer.classList.add("drag-active")
+  })
+
+  dropContainer.addEventListener("dragleave", () => {
+    dropContainer.classList.remove("drag-active")
+  })
+
+  dropContainer.addEventListener("drop", (e) => {
+    e.preventDefault()
+    dropContainer.classList.remove("drag-active")
+    fileInput.files = e.dataTransfer.files
+  })

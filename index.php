@@ -1,6 +1,29 @@
 <?php
 session_start();
 
+$host = 'localhost';
+$user = 'root';
+$password = '';
+$database = 'user_db';
+
+$connection = new mysqli($host, $user, $password, $database);
+
+// Check connection
+if ($connection->connect_error) {
+    die("Connection failed: " . $connection->connect_error);
+}
+
+// 2. Fetch data from the database
+$sql = "SELECT * FROM movies";
+$result = $connection->query($sql);
+
+// 3. Process the data
+$movies = array();
+if ($result->num_rows > 0) {
+    while ($row = $result->fetch_assoc()) {
+        $movies[] = $row;
+    }
+}
 // Function to check if the user is logged in
 function isUserLoggedIn() {
     return isset($_SESSION['login']) && $_SESSION['login'] === true;
@@ -46,7 +69,7 @@ function isUserLoggedIn() {
 
       <div class="overlay" data-overlay></div>
 
-      <a href="./index.php" class="logo">
+      <a href="./home.php" class="logo">
         <img src="./assets/images/logo.svg" alt="Filmlane logo">
       </a>
 
@@ -81,7 +104,7 @@ function isUserLoggedIn() {
 
         <div class="navbar-top">
 
-          <a href="./index.php" class="logo">
+          <a href="./home.php" class="logo">
             <img src="./assets/images/logo.svg" alt="Filmlane logo">
           </a>
 
@@ -94,15 +117,15 @@ function isUserLoggedIn() {
         <ul class="navbar-list">
 
           <li>
-            <a href="#top" class="navbar-link">Home</a>
-          </li>
-
-          <li>
-            <a href="#schedule" class="navbar-link">Schedule</a>
+            <a href="#home" class="navbar-link">Home</a>
           </li>
 
           <li>
             <a href="#events" class="navbar-link">Events</a>
+          </li>
+
+          <li>
+            <a href="#schedule" class="navbar-link">Schedule</a>
           </li>
 
           <li>
@@ -220,24 +243,20 @@ function isUserLoggedIn() {
       </section>
 
 <!-- 
-        - #TOP RATED
+        - #schedule
       -->
 
-      <section class="top-rated" id="movies">
+      <section class="top-rated" id="events">
         <div class="container">
 
-          <p class="section-subtitle">Online Streaming</p>
+          <p class="section-subtitle">Book a spot now!</p>
 
-          <h2 class="h2 section-title">Top Rated Movies</h2>
+          <h2 class="h2 section-title">Movies</h2>
 
           <ul class="filter-list">
 
             <li>
               <button class="filter-btn">Movies</button>
-            </li>
-
-            <li>
-              <button class="filter-btn">TV Shows</button>
             </li>
 
             <li>
@@ -252,21 +271,22 @@ function isUserLoggedIn() {
 
           <ul class="movies-list">
 
+          <?php foreach($movies as $movie): ?>
             <li>
               <div class="movie-card">
 
-                <a href="./movie-details.php">
+                <a href="./movie-details.php?movie=<?php echo $movie['movie'] ?>">
                   <figure class="card-banner">
-                    <img src="./assets/images/movie-1.png" alt="Sonic the Hedgehog 2 movie poster">
+                    <img src="./assets/images/<?php echo $movie['image'];?>" alt="<?php echo $movie['movie'] ?>">
                   </figure>
                 </a>
 
                 <div class="title-wrapper">
                   <a href="./movie-details.php">
-                    <h3 class="card-title">Sonic the Hedgehog 2</h3>
+                    <h3 class="card-title"><?php echo $movie['movie'] ?></h3>
                   </a>
 
-                  <time datetime="2022">2022</time>
+                  <time datetime="2022"><?php echo $movie['year'] ?></time>
                 </div>
 
                 <div class="card-meta">
@@ -275,270 +295,19 @@ function isUserLoggedIn() {
                   <div class="duration">
                     <ion-icon name="time-outline"></ion-icon>
 
-                    <time datetime="PT122M">122 min</time>
+                    <time datetime="PT122M"><?php echo $movie['duration'] ?> min</time>
                   </div>
 
                   <div class="rating">
                     <ion-icon name="star"></ion-icon>
 
-                    <data>7.8</data>
+                    <data><?php echo $movie['rating'] ?></data>
                   </div>
                 </div>
 
               </div>
             </li>
-
-            <li>
-              <div class="movie-card">
-
-                <a href="./movie-details">
-                  <figure class="card-banner">
-                    <img src="./assets/images/movie-2.png" alt="Morbius movie poster">
-                  </figure>
-                </a>
-
-                <div class="title-wrapper">
-                  <a href="./movie-details">
-                    <h3 class="card-title">Morbius</h3>
-                  </a>
-
-                  <time datetime="2022">2022</time>
-                </div>
-
-                <div class="card-meta">
-                  <div class="badge badge-outline">HD</div>
-
-                  <div class="duration">
-                    <ion-icon name="time-outline"></ion-icon>
-
-                    <time datetime="PT104M">104 min</time>
-                  </div>
-
-                  <div class="rating">
-                    <ion-icon name="star"></ion-icon>
-
-                    <data>5.9</data>
-                  </div>
-                </div>
-
-              </div>
-            </li>
-
-            <li>
-              <div class="movie-card">
-
-                <a href="./movie-details">
-                  <figure class="card-banner">
-                    <img src="./assets/images/movie-3.png" alt="The Adam Project movie poster">
-                  </figure>
-                </a>
-
-                <div class="title-wrapper">
-                  <a href="./movie-details">
-                    <h3 class="card-title">The Adam Project</h3>
-                  </a>
-
-                  <time datetime="2022">2022</time>
-                </div>
-
-                <div class="card-meta">
-                  <div class="badge badge-outline">4K</div>
-
-                  <div class="duration">
-                    <ion-icon name="time-outline"></ion-icon>
-
-                    <time datetime="PT106M">106 min</time>
-                  </div>
-
-                  <div class="rating">
-                    <ion-icon name="star"></ion-icon>
-
-                    <data>7.0</data>
-                  </div>
-                </div>
-
-              </div>
-            </li>
-
-            <li>
-              <div class="movie-card">
-
-                <a href="./movie-details">
-                  <figure class="card-banner">
-                    <img src="./assets/images/movie-4.png" alt="Free Guy movie poster">
-                  </figure>
-                </a>
-
-                <div class="title-wrapper">
-                  <a href="./movie-details">
-                    <h3 class="card-title">Free Guy</h3>
-                  </a>
-
-                  <time datetime="2021">2021</time>
-                </div>
-
-                <div class="card-meta">
-                  <div class="badge badge-outline">4K</div>
-
-                  <div class="duration">
-                    <ion-icon name="time-outline"></ion-icon>
-
-                    <time datetime="PT115M">115 min</time>
-                  </div>
-
-                  <div class="rating">
-                    <ion-icon name="star"></ion-icon>
-
-                    <data>7.7</data>
-                  </div>
-                </div>
-
-              </div>
-            </li>
-
-            <li>
-              <div class="movie-card">
-
-                <a href="./movie-details">
-                  <figure class="card-banner">
-                    <img src="./assets/images/movie-5.png" alt="The Batman movie poster">
-                  </figure>
-                </a>
-
-                <div class="title-wrapper">
-                  <a href="./movie-details">
-                    <h3 class="card-title">The Batman</h3>
-                  </a>
-
-                  <time datetime="2022">2022</time>
-                </div>
-
-                <div class="card-meta">
-                  <div class="badge badge-outline">4K</div>
-
-                  <div class="duration">
-                    <ion-icon name="time-outline"></ion-icon>
-
-                    <time datetime="PT176M">176 min</time>
-                  </div>
-
-                  <div class="rating">
-                    <ion-icon name="star"></ion-icon>
-
-                    <data>7.9</data>
-                  </div>
-                </div>
-
-              </div>
-            </li>
-
-            <li>
-              <div class="movie-card">
-
-                <a href="./movie-details">
-                  <figure class="card-banner">
-                    <img src="./assets/images/movie-6.png" alt="Uncharted movie poster">
-                  </figure>
-                </a>
-
-                <div class="title-wrapper">
-                  <a href="./movie-details">
-                    <h3 class="card-title">Uncharted</h3>
-                  </a>
-
-                  <time datetime="2022">2022</time>
-                </div>
-
-                <div class="card-meta">
-                  <div class="badge badge-outline">HD</div>
-
-                  <div class="duration">
-                    <ion-icon name="time-outline"></ion-icon>
-
-                    <time datetime="PT116M">116 min</time>
-                  </div>
-
-                  <div class="rating">
-                    <ion-icon name="star"></ion-icon>
-
-                    <data>7.0</data>
-                  </div>
-                </div>
-
-              </div>
-            </li>
-
-            <li>
-              <div class="movie-card">
-
-                <a href="./movie-details">
-                  <figure class="card-banner">
-                    <img src="./assets/images/movie-7.png" alt="Death on the Nile movie poster">
-                  </figure>
-                </a>
-
-                <div class="title-wrapper">
-                  <a href="./movie-details">
-                    <h3 class="card-title">Death on the Nile</h3>
-                  </a>
-
-                  <time datetime="2022">2022</time>
-                </div>
-
-                <div class="card-meta">
-                  <div class="badge badge-outline">2K</div>
-
-                  <div class="duration">
-                    <ion-icon name="time-outline"></ion-icon>
-
-                    <time datetime="PT127M">127 min</time>
-                  </div>
-
-                  <div class="rating">
-                    <ion-icon name="star"></ion-icon>
-
-                    <data>6.5</data>
-                  </div>
-                </div>
-
-              </div>
-            </li>
-
-            <li>
-              <div class="movie-card">
-
-                <a href="./movie-details">
-                  <figure class="card-banner">
-                    <img src="./assets/images/movie-8.png" alt="The King's Man movie poster">
-                  </figure>
-                </a>
-
-                <div class="title-wrapper">
-                  <a href="./movie-details">
-                    <h3 class="card-title">The King's Man</h3>
-                  </a>
-
-                  <time datetime="2021">2021</time>
-                </div>
-
-                <div class="card-meta">
-                  <div class="badge badge-outline">HD</div>
-
-                  <div class="duration">
-                    <ion-icon name="time-outline"></ion-icon>
-
-                    <time datetime="PT131M">131 min</time>
-                  </div>
-
-                  <div class="rating">
-                    <ion-icon name="star"></ion-icon>
-
-                    <data>7.0</data>
-                  </div>
-                </div>
-
-              </div>
-            </li>
+          <?php endforeach ?>
 
           </ul>
 
