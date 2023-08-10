@@ -483,31 +483,21 @@ function isUserLoggedIn() {
 
           <div class="service-content">
 
-            <p class="service-subtitle">Our Services</p>
 
-            <h2 class="h2 service-title">Download Your Shows Watch Offline.</h2>
+            <h2 class="h2 service-title">Multicultural events</h2>
 
             <p class="service-text">
-              Lorem ipsum dolor sit amet, consecetur adipiscing elseddo eiusmod tempor.There are many variations of
-              passages of lorem
-              Ipsum available, but the majority have suffered alteration in some injected humour.
+              Certain events hosted in our cinema and organized by independent cultural operators may have a different price.
             </p>
 
             <ul class="service-list">
 
-              <li>
+            <li>
                 <div class="service-card">
 
-                  <div class="card-icon">
-                    <ion-icon name="tv"></ion-icon>
-                  </div>
-
                   <div class="card-content">
-                    <h3 class="h3 card-title">Enjoy on Your TV.</h3>
-
-                    <p class="card-text">
-                      Lorem ipsum dolor sit amet, consecetur adipiscing elit, sed do eiusmod tempor.
-                    </p>
+                    <h3 class="h3 card-title">Full price, depending on the event</h3>
+                    <p class="card-text">RON30/40/50</p>
                   </div>
 
                 </div>
@@ -516,16 +506,30 @@ function isUserLoggedIn() {
               <li>
                 <div class="service-card">
 
-                  <div class="card-icon">
-                    <ion-icon name="videocam"></ion-icon>
+                  <div class="card-content">
+                    <h3 class="h3 card-title">Discounted price, depending on the event - students & retirees</h3>
+                    <p class="card-text">RON20/30/40</p>
                   </div>
 
-                  <div class="card-content">
-                    <h3 class="h3 card-title">Watch Everywhere.</h3>
+                </div>
+              </li>
+              
+              <li>
+                <div class="service-card">
 
-                    <p class="card-text">
-                      Lorem ipsum dolor sit amet, consecetur adipiscing elit, sed do eiusmod tempor.
-                    </p>
+                  <div class="card-content">
+                    <h3 class="h3 card-title">Discounted price - childs under 12</h3>
+                    <p class="card-text">RON15/20</p>
+                  </div>
+
+                </div>
+              </li>
+              <li>
+                <div class="service-card">
+
+                  <div class="card-content">
+                    <h3 class="h3 card-title">Discounted price - certificate needed</h3>
+                    <p class="card-text">FREE</p>
                   </div>
 
                 </div>
@@ -537,15 +541,6 @@ function isUserLoggedIn() {
 
         </div>
       </section>
-
-
-
-
-
-      
-
-
-
 
       <!-- 
         - #TV SERIES
