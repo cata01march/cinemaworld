@@ -281,12 +281,7 @@ function isUserLoggedInUser() {
 
             if ($result->num_rows > 0) {
                 while ($row = $result->fetch_assoc()) {
-                    $movie = $row['movie'];
-                    $image = $row['image'];
-                    $year = $row['year'];
-                    $duration = $row['duration'];
-                    $rating = $row['rating'];
-            ?>
+                    ?>
                     <li>
                         <div class="movie-card">
                             <a href="/movie-details.php?movie=<?php echo $movie; ?>">
@@ -298,13 +293,13 @@ function isUserLoggedInUser() {
                                 <a href="/movie-details.php?movie=<?php echo $movie; ?>">
                                     <h3 class="card-title"><?php echo $movie; ?></h3>
                                 </a>
-                                <time datetime="<?php echo $year; ?>"> <?php echo $year; ?></time>
+                                <time datetime="<?php echo $date; ?>"> <?php echo $date; ?></time>
                             </div>
                             <div class="card-meta">
                                 <div class="badge badge-outline">2K</div>
                                 <div class="duration">
                                     <ion-icon name="time-outline"></ion-icon>
-                                    <time datetime="PT<?php echo $duration; ?>M"><?php echo $duration; ?> min</time>
+                                    <time datetime="PT<?php echo $movie; ?>M"><?php echo $movie; ?> min</time>
                                 </div>
                                 <div class="rating">
                                     <ion-icon name="star"></ion-icon>
@@ -313,7 +308,6 @@ function isUserLoggedInUser() {
                             </div>
                         </div>
                     </li>
-
                 <?php
                 }
             } else {

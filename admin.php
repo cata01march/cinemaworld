@@ -2,19 +2,19 @@
 session_start();
 
 if (isset($_SESSION['login']) && $_SESSION['login'] === true && $_SESSION['role'] === 'admin') {
-  if ($_SERVER["REQUEST_METHOD"] === "POST") {
-    // Establish database connection
-    $host = 'localhost';
-    $user = 'root';
-    $password = '';
-    $database = 'user_db'; // Assuming the name of your movie database
+  $host = 'localhost';
+  $user = 'root';
+  $password = '';
+  $database = 'user_db'; // Assuming the name of your movie database
 
-    $connection = new mysqli($host, $user, $password, $database);
+  $connection = new mysqli($host, $user, $password, $database);
 
-    // Check connection
-    if ($connection->connect_error) {
-        die("Connection failed: " . $connection->connect_error);
-    }
+  // Check connection
+  if ($connection->connect_error) {
+      die("Connection failed: " . $connection->connect_error);
+  }
+
+  if (isset($_POST["addMovie"])) {
     // Retrieve form inputs
     $movie = $_POST['movie'];
     $director = $_POST['director'];
@@ -91,6 +91,35 @@ if (isset($_SESSION['login']) && $_SESSION['login'] === true && $_SESSION['role'
 
     // Close the database connection
     $connection->close();
+}
+else if(isset($_POST["scheduleMovie"])) {
+  $inputMovie = $_POST['inputMovie'];
+  $date = $_POST['date'];
+  $hour = $_POST['hour'];
+  $image = "emoji.png";
+
+  $sql = "INSERT INTO scheduled_movies (movie_id, scheduled_date, scheduled_hour)
+          VALUES ('$inputMovie', '$date', '$hour');
+  ";
+
+  $connection->query($sql);
+}
+else if(isset($_POST["deleteMovie"])) {
+  $inputMovie = $_POST['inputMovie'];
+
+  $sql = "DELETE FROM scheduled_movies WHERE movie_id = '$inputMovie'";
+  $connection->query($sql);
+
+  $sql = "DELETE FROM movies WHERE movieId = '$inputMovie'";
+  $connection->query($sql);
+}
+  $sql = "SELECT * FROM movies";
+  $result = $connection->query($sql);
+  $formMovies = array();
+  if ($result->num_rows > 0) {
+    while ($row = $result->fetch_assoc()) {
+        $formMovies[] = $row;
+    }
 }
 } 
 else {
@@ -261,10 +290,7 @@ function isUserLoggedInUser() {
 
   <main>
     <article>
-
-      <!-- 
-        - #TV SERIES
-      -->
+      
       <script>
         // Check if the 'error' query parameter exists
         const params = new URLSearchParams(window.location.search);
@@ -277,36 +303,77 @@ function isUserLoggedInUser() {
       <section class="tv-series">
         <div class="container">
 
-          <p class="section-subtitle"> </p>
 
           <h2 class="h2 section-title">Dashboard</h2>
+            <div class="form-list">
+              <!-- ADD MOVIES -->
+              <form class="registration-form" action="admin.php" method="POST" enctype="multipart/form-data">  
+                <input type="movie" id="movie" name="movie" required class="h-input" placeholder="Movie title">
 
-          <form class="registration-form" action="admin.php" method="POST" enctype="multipart/form-data">  
-            <input type="movie" id="movie" name="movie" required class="h-input" placeholder="Movie title">
+                <input type="director" id="director" name="director" required class="h-input" placeholder="Director">
 
-            <input type="director" id="director" name="director" required class="h-input" placeholder="Director">
+                <input type="rating" id="rating" name="rating" required class="h-input" placeholder="Rating">
 
-            <input type="rating" id="rating" name="rating" required class="h-input" placeholder="Rating">
+                <input type="genre" id="genre" name="genre" required class="h-input" placeholder="Genre">
 
-            <input type="genre" id="genre" name="genre" required class="h-input" placeholder="Genre">
+                <input type="year" id="year" name="year" required class="h-input" placeholder="Year">
 
-            <input type="year" id="year" name="year" required class="h-input" placeholder="Year">
+                <input type="number" id="duration" name="duration" required class="h-input" placeholder="Duration">
 
-            <input type="number" id="duration" name="duration" required class="h-input" placeholder="Duration">
+                <textarea name="description" style="width:100%; height:100px;">Short description of the movie</textarea>
 
-            <textarea name="description" style="width:100%; height:100px;">Short description of the movie</textarea>
+                <label for="image" class="drop-container" id="dropcontainer">
+                  <span class="drop-title">Drop files here</span>
+                  or
+                  <input type="file" id="images" name="image" accept="image/*" required>
+                </label>
+      
+                <div class="button-container">
+                  <button type="submit" class="h-button" name="addMovie">Add movie</button>
+                </div>
+                
+              </form>
+              <!-- ASSIGN DATE AND HOUR -->
+              <form class="registration-form" action="admin.php" method="POST" enctype="multipart/form-data">  
+              <label for="movie" class="search-btn">Select Movie:</label>
+              <select name="inputMovie" id="movieSelect" class="search-btn">
+                <?php foreach($formMovies as $m):?>
+                    <option value="<?php echo $m['movieId']?>"><?php echo $m['movie']?></option>
+                <?php endforeach ?>
+              </select>
+              
+              <label for="date" class="search-btn">Select Date:</label>
+              <input type="date" name="date" required class="h-input">
+              
+              <label for="hour" class="search-btn">Select Hour:</label>
+              <input type="time" name="hour" required class="h-input">
 
-            <label for="image" class="drop-container" id="dropcontainer">
-              <span class="drop-title">Drop files here</span>
-              or
-              <input type="file" id="images" name="image" accept="image/*" required>
-            </label>
-  
-            <div class="button-container">
-              <button type="submit" class="h-button">Add movie</button>
-            </div>
-            
-          </form>
+              <label for="hour" class="search-btn">Additional images for movie</label>
+              <label for="image" class="drop-container" id="dropcontainer">
+                <span class="drop-title">Drop files here</span>
+                or
+                <input type="file" id="images" name="image" accept="image/*">
+              </label>
+              
+              <div class="button-container">
+                <button type="submit" class="h-button" name="scheduleMovie">Schedule</button>
+              </div>
+                
+              </form>
+              <!-- DELETE MOVIE -->
+              <form class="registration-form" action="admin.php" method="POST">  
+              <label for="movie" class="search-btn">Select Movie:</label>
+              <select name="inputMovie" id="movieDelete" class="search-btn">
+                <?php foreach($formMovies as $m):?>
+                    <option value="<?php echo $m['movieId']?>"><?php echo $m['movie']?></option>
+                <?php endforeach ?>
+              </select>
+              <div class="button-container">
+                <button type="submit" id="deleteButton" class="h-button" name="deleteMovie">Delete movie and schedules</button>
+              </div>
+                
+              </form>
+                </div>
           <div id="response-message"></div>
 
           <script>
@@ -329,6 +396,11 @@ function isUserLoggedInUser() {
 
                   return false; 
               }
+              document.getElementById("deleteButton").addEventListener("click", function() {
+                if (confirm("Are you sure you want to delete this movie?")) {
+                    document.getElementById("deleteForm").submit();
+                }
+              });
           </script>
         </div>
       </section>

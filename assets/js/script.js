@@ -99,3 +99,4 @@ const dropContainer = document.getElementById("dropcontainer")
     dropContainer.classList.remove("drag-active")
     fileInput.files = e.dataTransfer.files
   })
+

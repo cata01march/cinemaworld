@@ -264,6 +264,7 @@ body.active { overflow: hidden; }
   color: var(--xiketic);
 }
 
+
 /**
   * DROP FILES / CHOOSE FILE
   */
@@ -281,7 +282,7 @@ input[type=file] {
 input[type=file]::file-selector-button {
   margin-right: 20px;
   border: none;
-  background: #084cdf;
+  background: #a09520;
   padding: 10px 20px;
   border-radius: 10px;
   color: #fff;
@@ -290,7 +291,7 @@ input[type=file]::file-selector-button {
 }
 
 input[type=file]::file-selector-button:hover {
-  background: #0d45a5;
+  background: #e1d438;
 }
 
 .drop-container {
@@ -728,11 +729,12 @@ input[type=file]::file-selector-button:hover {
 
 .service-text { margin-bottom: 40px; }
 
-.service-list > li:first-child {
-  padding-bottom: 20px;
-  border-bottom: 1px dashed hsla(0, 0%, 100%, 0.1);
-  margin-bottom: 30px;
+.service-list > li:not(:last-child) {
+  /* padding-bottom: 20px; */
+  border-bottom: 2px dashed hsla(0, 0%, 100%, 0.2);
+  /* margin-bottom: 30px; */
 }
+
 
 .service-card .card-icon {
   color: var(--white);
@@ -1289,11 +1291,12 @@ input[type=file]::file-selector-button:hover {
 
 .registration-form {
   text-align: center;
-  max-width: 500px;
+  max-width: 400px;
   margin: 0 auto;
   border: 1px solid #ffeb99;
   border-radius: 10px;
   padding: 20px;
+  margin-bottom: 10px;
 }
 
 .registration-form label {
@@ -1320,7 +1323,7 @@ input[type=file]::file-selector-button:hover {
   font-size: 27px;
   font-weight: var(--fw-700);
   text-transform: uppercase;
-  letter-spacing: 2px;
+  letter-spacing: 1px;
   display: center;
   align-items: center;
   gap: 10px;
@@ -1334,7 +1337,7 @@ input[type=file]::file-selector-button:hover {
 
 .h-input {
   width: 100%;
-  padding: 8px;
+  padding: 5px;
   font-size: 1rem;
   margin-bottom: 15px;
   border: 1px solid #ccc;
@@ -1440,7 +1443,7 @@ input[type=file]::file-selector-button:hover {
    * SERVICE
    */
 
-  .service-list > li:first-child { padding-bottom: 30px; }
+  /* .service-list > li:first-child { padding-bottom: 30px; } */
 
   .service-card {
     display: flex;
@@ -1645,7 +1648,7 @@ input[type=file]::file-selector-button:hover {
 
   .movies-list { grid-template-columns: repeat(3, 1fr); }
 
-
+ 
 
   /**
    * HEADER
@@ -1827,6 +1830,12 @@ input[type=file]::file-selector-button:hover {
 
   .movies-list { grid-template-columns: repeat(4, 1fr); }
 
+  .form-list {
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
+  }
+
 
 
   /**
@@ -1905,4 +1914,20 @@ input[type=file]::file-selector-button:hover {
     transform: rotate(-0.25turn);
   }
 
+}
+
+  /**
+   * Schedule Form
+   */
+
+#movieSelect, #movieDelete {
+  padding: 5px;
+  width: 100%;
+  background: white;
+  color: black;
+  border-radius: 4px;
+  margin-bottom: 15px;
+  border: 1px solid #ccc;
+  font-size: 1rem;
+  box-sizing: border-box;
 }

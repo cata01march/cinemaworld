@@ -25,6 +25,22 @@ if ($result->num_rows > 0) {
     }
 }
 
+//Get Upcoming Movies
+$sql = "SELECT scheduled_movies.*, movies.*, DATE_FORMAT(scheduled_movies.scheduled_date, '%W, %M %e') AS formatted_date, DATE_FORMAT(scheduled_movies.scheduled_hour, ', %H:%i') AS formatted_hour 
+        FROM scheduled_movies 
+        LEFT JOIN movies 
+        ON scheduled_movies.movie_id = movies.movieId
+        WHERE scheduled_movies.scheduled_date >= CURDATE()
+        ORDER BY scheduled_movies.scheduled_date, scheduled_movies.scheduled_hour ASC";
+$result = $connection->query($sql);
+
+$scheduledMovies = array();
+if ($result->num_rows > 0) {
+    while ($row = $result->fetch_assoc()) {
+        $scheduledMovies[] = $row;
+    }
+}
+
 if (!isset($_SESSION['login']) || $_SESSION['login'] !== true) {
   header("Location: index.php");
   exit();
@@ -132,11 +148,11 @@ function isUserLoggedInUser() {
           </li>
 
           <li>
-            <a href="#schedule" class="navbar-link">Schedule</a>
+            <a href="#events" class="navbar-link">Events</a>
           </li>
 
           <li>
-            <a href="#events" class="navbar-link">Events</a>
+            <a href="#schedule" class="navbar-link">Schedule</a>
           </li>
 
           <li>
@@ -257,7 +273,7 @@ function isUserLoggedInUser() {
         - #TOP RATED
       -->
 
-      <section class="top-rated" id="schedule">
+      <section class="top-rated" id="events">
         <div class="container">
 
           <p class="section-subtitle">Book a spot now!</p>
@@ -332,13 +348,13 @@ function isUserLoggedInUser() {
         - #UPCOMING
       -->
 
-      <section class="upcoming">
+      <section class="upcoming" id = "schedule">
         <div class="container">
 
           <div class="flex-wrapper">
 
             <div class="title-wrapper">
-              <p class="section-subtitle">Online Streaming</p>
+              <p class="section-subtitle">Schedule</p>
 
               <h2 class="h2 section-title">Upcoming Movies</h2>
             </div>
@@ -361,155 +377,47 @@ function isUserLoggedInUser() {
 
           </div>
 
-          <ul class="movies-list  has-scrollbar">
+          <ul class="movies-list">
+            <?php
+            $currentDateTime = new DateTime();
 
+            foreach ($scheduledMovies as $movie):
+                $scheduledDateTime = new DateTime($movie['formatted_date'] . $movie['formatted_hour']);
+
+                if ($scheduledDateTime > $currentDateTime):
+            ?>
             <li>
-              <div class="movie-card">
-
-                <a href="./movie-details">
-                  <figure class="card-banner">
-                    <img src="./assets/images/upcoming-1.png" alt="The Northman movie poster">
-                  </figure>
-                </a>
-
-                <div class="title-wrapper">
-                  <a href="./movie-details">
-                    <h3 class="card-title">The Northman</h3>
-                  </a>
-
-                  <time datetime="2022">2022</time>
+                <div class="movie-card">
+                    <a href="./movie-details.php?movie=<?php echo $movie['movie'] ?>">
+                        <figure class="card-banner">
+                            <img src="./assets/images/<?php echo $movie['image'];?>" alt="<?php echo $movie['movie'] ?>">
+                        </figure>
+                    </a>
+                    <div class="title-wrapper">
+                        <a href="./movie-details.php?movie=<?php echo $movie['movie'] ?>">
+                            <h3 class="card-title"><?php echo $movie['movie'];?></h3>
+                        </a>
+                        <time datetime="<?php echo $movie['formatted_date'];?>"><?php echo $movie['formatted_date'], $movie['formatted_hour'];?></time>
+                    </div>
+                    <div class="card-meta">
+                        <div class="badge badge-outline">HD</div>
+                        <div class="duration">
+                            <ion-icon name="time-outline"></ion-icon>
+                            <time datetime="<?php echo $movie['duration'] ?>"><?php echo $movie['duration'] ?> min</time>
+                        </div>
+                        <div class="rating">
+                            <ion-icon name="star"></ion-icon>
+                            <data><?php echo $movie['rating'] ?></data>
+                        </div>
+                    </div>
                 </div>
-
-                <div class="card-meta">
-                  <div class="badge badge-outline">HD</div>
-
-                  <div class="duration">
-                    <ion-icon name="time-outline"></ion-icon>
-
-                    <time datetime="PT137M">137 min</time>
-                  </div>
-
-                  <div class="rating">
-                    <ion-icon name="star"></ion-icon>
-
-                    <data>8.5</data>
-                  </div>
-                </div>
-
-              </div>
             </li>
-
-            <li>
-              <div class="movie-card">
-
-                <a href="./movie-details">
-                  <figure class="card-banner">
-                    <img src="./assets/images/upcoming-2.png"
-                      alt="Doctor Strange in the Multiverse of Madness movie poster">
-                  </figure>
-                </a>
-
-                <div class="title-wrapper">
-                  <a href="./movie-details">
-                    <h3 class="card-title">Doctor Strange in the Multiverse of Madness</h3>
-                  </a>
-
-                  <time datetime="2022">2022</time>
-                </div>
-
-                <div class="card-meta">
-                  <div class="badge badge-outline">4K</div>
-
-                  <div class="duration">
-                    <ion-icon name="time-outline"></ion-icon>
-
-                    <time datetime="PT126M">126 min</time>
-                  </div>
-
-                  <div class="rating">
-                    <ion-icon name="star"></ion-icon>
-
-                    <data>NR</data>
-                  </div>
-                </div>
-
-              </div>
-            </li>
-
-            <li>
-              <div class="movie-card">
-
-                <a href="./movie-details">
-                  <figure class="card-banner">
-                    <img src="./assets/images/upcoming-3.png" alt="Memory movie poster">
-                  </figure>
-                </a>
-
-                <div class="title-wrapper">
-                  <a href="./movie-details">
-                    <h3 class="card-title">Memory</h3>
-                  </a>
-
-                  <time datetime="2022">2022</time>
-                </div>
-
-                <div class="card-meta">
-                  <div class="badge badge-outline">2K</div>
-
-                  <div class="duration">
-                    <ion-icon name="time-outline"></ion-icon>
-
-                    <time datetime="">N/A</time>
-                  </div>
-
-                  <div class="rating">
-                    <ion-icon name="star"></ion-icon>
-
-                    <data>NR</data>
-                  </div>
-                </div>
-
-              </div>
-            </li>
-
-            <li>
-              <div class="movie-card">
-
-                <a href="./movie-details">
-                  <figure class="card-banner">
-                    <img src="./assets/images/upcoming-4.png"
-                      alt="The Unbearable Weight of Massive Talent movie poster">
-                  </figure>
-                </a>
-
-                <div class="title-wrapper">
-                  <a href="./movie-details">
-                    <h3 class="card-title">The Unbearable Weight of Massive Talent</h3>
-                  </a>
-
-                  <time datetime="2022">2022</time>
-                </div>
-
-                <div class="card-meta">
-                  <div class="badge badge-outline">HD</div>
-
-                  <div class="duration">
-                    <ion-icon name="time-outline"></ion-icon>
-
-                    <time datetime="PT107M">107 min</time>
-                  </div>
-
-                  <div class="rating">
-                    <ion-icon name="star"></ion-icon>
-
-                    <data>NR</data>
-                  </div>
-                </div>
-
-              </div>
-            </li>
-
+            <?php
+                endif;
+            endforeach;
+            ?>
           </ul>
+
 
         </div>
       </section>
@@ -522,16 +430,13 @@ function isUserLoggedInUser() {
         - #SERVICE
       -->
 
-      <section class="service">
+      <section class="service" id = "tickets">
         <div class="container">
 
           <div class="service-banner">
             <figure>
               <img src="./assets/images/service-banner.jpg" alt="HD 4k resolution! only $3.99">
             </figure>
-
-            <a href="./assets/images/service-banner.jpg" download class="service-btn">
-              <span>Download</span>
 
               <ion-icon name="download-outline"></ion-icon>
             </a>
@@ -607,7 +512,7 @@ function isUserLoggedInUser() {
         - #TV SERIES
       -->
 
-      <section class="tv-series" id="tvseries">
+      <!-- <section class="tv-series" id="tvseries">
         <div class="container">
 
           <p class="section-subtitle">Best TV Series</p>
@@ -763,7 +668,7 @@ function isUserLoggedInUser() {
           </ul>
 
         </div>
-      </section>
+      </section> -->
 
 
 
@@ -773,21 +678,21 @@ function isUserLoggedInUser() {
         - #CTA
       -->
 
-      <section class="cta">
+      <section class="cta" id = "contact">
         <div class="container">
 
           <div class="title-wrapper">
-            <h2 class="cta-title">Trial start first 30 days.</h2>
+            <h2 class="cta-title">Subscribe to our newsletter</h2>
 
             <p class="cta-text">
-              Enter your email to create or restart your membership.
+              Be in charge⚡️with our new movies and events.
             </p>
           </div>
 
           <form action="" class="cta-form">
             <input type="email" name="email" required placeholder="Enter your email" class="email-field">
 
-            <button type="submit" class="cta-form-btn">Get started</button>
+            <button type="submit" class="cta-form-btn">Subscribe</button>
           </form>
 
         </div>
