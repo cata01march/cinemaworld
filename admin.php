@@ -16,13 +16,13 @@ if (isset($_SESSION['login']) && $_SESSION['login'] === true && $_SESSION['role'
 
   if (isset($_POST["addMovie"])) {
     // Retrieve form inputs
-    $movie = $_POST['movie'];
-    $director = $_POST['director'];
-    $rating = $_POST['rating'];
-    $genre = $_POST['genre'];
-    $year = $_POST['year'];
-    $duration = $_POST['duration'];
-    $description = $_POST['description'];
+    $movie = mysqli_real_escape_string($connection, $_POST['movie']);
+    $director = mysqli_real_escape_string($connection, $_POST['director']);
+    $rating = mysqli_real_escape_string($connection, $_POST['rating']);
+    $genre = mysqli_real_escape_string($connection, $_POST['genre']);
+    $year = mysqli_real_escape_string($connection, $_POST['year']);
+    $duration = mysqli_real_escape_string($connection, $_POST['duration']);
+    $description = mysqli_real_escape_string($connection, $_POST['description']);
 
     // Add more fields as needed for your movie details
 
@@ -93,9 +93,9 @@ if (isset($_SESSION['login']) && $_SESSION['login'] === true && $_SESSION['role'
     $connection->close();
 }
 else if(isset($_POST["scheduleMovie"])) {
-  $inputMovie = $_POST['inputMovie'];
-  $date = $_POST['date'];
-  $hour = $_POST['hour'];
+  $inputMovie = mysqli_real_escape_string($connection, $_POST['inputMovie']);
+  $date = mysqli_real_escape_string($connection, $_POST['date']);
+  $hour = mysqli_real_escape_string($connection, $_POST['hour']);
   $image = "emoji.png";
 
   $sql = "INSERT INTO scheduled_movies (movie_id, scheduled_date, scheduled_hour)
@@ -105,7 +105,7 @@ else if(isset($_POST["scheduleMovie"])) {
   $connection->query($sql);
 }
 else if(isset($_POST["deleteMovie"])) {
-  $inputMovie = $_POST['inputMovie'];
+  $inputMovie = mysqli_real_escape_string($connection, $_POST['inputMovie']);
 
   $sql = "DELETE FROM scheduled_movies WHERE movie_id = '$inputMovie'";
   $connection->query($sql);
@@ -143,7 +143,7 @@ function isUserLoggedInUser() {
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Register</title>
+  <title>Dashboard</title>
 
   <!-- 
     - favicon
@@ -227,23 +227,23 @@ function isUserLoggedInUser() {
         <ul class="navbar-list">
 
           <li>
-            <a href="#top" class="navbar-link">Home</a>
+            <a href="/home.php#top" class="navbar-link">Home</a>
           </li>
 
           <li>
-            <a href="#schedule" class="navbar-link">Schedule</a>
+            <a href="/home.php#schedule" class="navbar-link">Schedule</a>
           </li>
 
           <li>
-            <a href="#events" class="navbar-link">Events</a>
+            <a href="/home.php#events" class="navbar-link">Events</a>
           </li>
 
           <li>
-            <a href="#tickets" class="navbar-link">Tickets & Access</a>
+            <a href="/home.php#tickets" class="navbar-link">Tickets & Access</a>
           </li>
 
           <li>
-            <a href="#contact" class="navbar-link">Contact</a>
+            <a href="/home.php#contact" class="navbar-link">Contact</a>
           </li>
 
         </ul>

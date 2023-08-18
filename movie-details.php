@@ -31,14 +31,23 @@ if ($result->num_rows > 0) {
     // Handle error if movie not found
     die("Movie not found");
 }
+$sql = "SELECT id, scheduled_movies.*, movies.*, DATE_FORMAT(scheduled_movies.scheduled_date, '%W, %M %e') AS formatted_date, DATE_FORMAT(scheduled_movies.scheduled_hour, ', %H:%i') AS formatted_hour 
+        FROM scheduled_movies 
+        LEFT JOIN movies 
+        ON scheduled_movies.movie_id = movies.movieId
+        WHERE scheduled_movies.scheduled_date >= CURDATE() AND movies.movie = '$movie'
+        ORDER BY scheduled_movies.scheduled_date, scheduled_movies.scheduled_hour ASC";
+$result = $connection->query($sql);
 
-// Close the database connection
+// $scheduledMovies = $_GET['scheduled_movies'];
 
-// Function to check if the user is logged in
-// if (!isset($_SESSION['login']) || $_SESSION['login'] !== true) {
-//   header("Location: index.php");
-//   exit();
-// }
+$scheduledMovies = array();
+if ($result->num_rows > 0) {
+    while ($row = $result->fetch_assoc()) {
+        $scheduledMovies[] = $row;
+    }
+}
+
 function isUserLoggedInAdmin() {
   return isset($_SESSION['login']) && $_SESSION['login'] === true && $_SESSION['role'] === 'admin';
 }
@@ -255,6 +264,9 @@ function isUserLoggedInUser() {
                 <p class="storyline">
                     <?php echo $description; ?>
                 </p>
+                <?php foreach ($scheduledMovies as $scheduledMovie): ?>
+                  <a href="./seater.php?movie=<?php echo $scheduledMovie['movie'] ?>?formatted_date=<?php echo $scheduledMovie['formatted_date'] ?>&formatted_hour=<?php echo $scheduledMovie['formatted_hour'] ?>"><button type="submit" class="book-seat-btn"><?php echo $scheduledMovie['formatted_date'];?><?php echo $scheduledMovie['formatted_hour'];?></button></a>
+                <?php endforeach; ?>
             </div>
         </div>
       </section>

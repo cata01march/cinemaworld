@@ -77,14 +77,14 @@ window.addEventListener("scroll", function () {
 
 /**
  * drop container
- */
+*/
 const dropContainer = document.getElementById("dropcontainer")
-  const fileInput = document.getElementById("images")
+const fileInput = document.getElementById("images")
 
-  dropContainer.addEventListener("dragover", (e) => {
-    // prevent default to allow drop
-    e.preventDefault()
-  }, false)
+dropContainer.addEventListener("dragover", (e) => {
+  // prevent default to allow drop
+  e.preventDefault()
+}, false)
 
   dropContainer.addEventListener("dragenter", () => {
     dropContainer.classList.add("drag-active")
@@ -99,4 +99,5 @@ const dropContainer = document.getElementById("dropcontainer")
     dropContainer.classList.remove("drag-active")
     fileInput.files = e.dataTransfer.files
   })
+
 

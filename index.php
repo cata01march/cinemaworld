@@ -539,6 +539,84 @@ function isUserLoggedIn() {
 
           </div>
 
+          <div class="service-content">
+
+
+            <h2 class="h2 service-title">You should read these too</h2>
+
+            <p class="service-text">
+              Access for people with disabilities or using a wheelchair is possible. The hall has: <br>
+                - access ramp <br>
+                - adapted toilets <br>
+                - special space for the wheelchair in the last row 
+            </p>
+
+            <ul class="service-list">
+
+              <li>
+                <div class="service-card">
+
+                  <div class="card-content">
+                    <h4 class="h4 card-title">Tickets can be purchased online or from the cinema cashier, open 30 minutes before each performance, subject to availability;</h4>
+                  </div>
+
+                </div>
+              </li>
+
+              <li>
+                <div class="service-card">
+
+                  <div class="card-content">
+                    <h4 class="h4 card-title">Discounted tickets can only be purchased upon presentation of a valid supporting document. If purchased online, the proof will be requested at the entrance to the cinema;</h4>
+                  </div>
+
+                </div>
+              </li>
+              
+              <li>
+                <div class="service-card">
+
+                  <div class="card-content">
+                    <h4 class="h4 card-title">Tickets are valid only on the date and time printed on them;</h4>
+                  </div>
+
+                </div>
+              </li>
+
+              <li>
+                <div class="service-card">
+
+                  <div class="card-content">
+                    <h4 class="h4 card-title">The access of spectators to the cinema after the start time of the film, as written on the ticket, is not allowed;</h4>
+                  </div>
+
+                </div>
+              </li>
+
+              <li>
+                <div class="service-card">
+
+                  <div class="card-content">
+                    <h4 class="h4 card-title">Failure to show up on time at the show leads to cancellation of the ticket without the right to refund or use it at another performance.</h4>
+                  </div>
+
+                </div>
+              </li>
+
+              <li>
+                <div class="service-card">
+
+                  <div class="card-content">
+                    <h4 class="h4 card-title">Out of respect for other spectators and out of care for space, please do not eat food in the cinema hall. Thank you!</h4>
+                  </div>
+
+                </div>
+              </li>
+
+            </ul>
+
+          </div>
+
         </div>
       </section>
 
